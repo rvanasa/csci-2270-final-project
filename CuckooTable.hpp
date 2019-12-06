@@ -5,9 +5,11 @@
 
 #include <utility>
 #include <vector>
+#include <cmath>
 
 using std::pair;
 using std::vector;
+using std::log2;
 
 /**
  * An implementation of an N-table cuckoo hash table.
@@ -24,7 +26,7 @@ protected:
 
     // Compute a hash from the output of `H` given the table index and element, modulo table capacity
     unsigned hash(unsigned n, U item) const {
-        return H(n, item, capacity()) % capacity();
+        return H(n, item, this->capacity()) % this->capacity();
     }
 
 public:
@@ -114,7 +116,7 @@ public:
 
 private:
     bool tryInsert(U item) {
-        return tryInsert(item, (unsigned)std::log2(tableSize) * 2 / N);
+        return tryInsert(item, (unsigned)log2(tableSize) * 2 / N);
     }
 
     bool tryInsert(U item, unsigned remaining) {

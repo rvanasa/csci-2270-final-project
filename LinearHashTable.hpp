@@ -47,42 +47,48 @@ public:
     }
 
     bool contains(U item) const override {
-        auto h = hash(item);
-        for (unsigned i = 0; i < capacity(); i++) {
+        // Cycle through table starting at the hash index
+        auto h = this->hash(item);
+        for (unsigned i = 0; i < this->capacity(); i++) {
             if (table[h].first && table[h].second == item) {
+                // Found element
                 return true;
             }
-            h = (h + 1) % capacity();
+            h = (h + 1) % this->capacity();
         }
         return false;
     }
 
     bool insert(U item) override {
-        auto h = hash(item);
-        for (unsigned i = 0; i < capacity(); i++) {
+        // Cycle through table starting at the hash index
+        auto h = this->hash(item);
+        for (unsigned i = 0; i < this->capacity(); i++) {
             if (!table[h].first) {
+                // Fill empty space
                 table[h].first = true;
                 table[h].second = item;
                 return true;
             } else if (table[h].second == item) {
+                // Cancel if the element already exists in the table
                 return false;
             }
-            h = (h + 1) % capacity();
+            h = (h + 1) % this->capacity();
         }
-        resize(capacity() * 2);
+        // Double table capacity and re-attempt to insert
+        resize(this->capacity());
         return insert(item);
     }
 
     bool remove(U item) override {
-        auto h = hash(item);
-        for (unsigned i = 0; i < capacity(); i++) {
-            if (table[h].first) {
-                if (table[h].second == item) {
-                    table[h].first = false;
-                    return true;
-                }
+        // Cycle through table starting at the hash index
+        auto h = this->hash(item);
+        for (unsigned i = 0; i < this->capacity(); i++) {
+            if (table[h].first && table[h].second == item) {
+                // Remove element by disabling the existence flag in the pair
+                table[h].first = false;
+                return true;
             }
-            h = (h + 1) % capacity();
+            h = (h + 1) % this->capacity();
         }
         return false;
     }

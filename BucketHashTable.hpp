@@ -22,22 +22,22 @@ public:
     }
 
     bool contains(U item) const override {
-        return table[hash(item)].contains(item);
+        return table[this->hash(item)].contains(item);
     }
 
     bool insert(U item) override {
-        if (contains(item)) {
+        if (this->contains(item)) {
             return false;
         }
-        table[hash(item)].insert(item);
+        table[this->hash(item)].insert(item);
         return true;
     }
 
     bool remove(U item) override {
-        if (!contains(item)) {
+        if (!this->contains(item)) {
             return false;
         }
-        table[hash(item)].remove(item);
+        table[this->hash(item)].remove(item);
         return true;
     }
 };

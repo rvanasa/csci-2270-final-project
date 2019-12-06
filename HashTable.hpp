@@ -14,7 +14,7 @@ class HashTable : public Container<U> {
 protected:
     // Compute a hash from the output of `H` given the element and capacity, modulo table capacity
     unsigned hash(U item) const {
-        return H(item, capacity()) % capacity();
+        return H(item, this->capacity()) % this->capacity();
     }
 };
 
