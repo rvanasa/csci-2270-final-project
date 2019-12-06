@@ -74,8 +74,8 @@ public:
             }
             h = (h + 1) % this->capacity();
         }
-        // Double table capacity and re-attempt to insert
-        resize(this->capacity());
+        // Increase capacity by a factor of 1.5 and re-attempt to insert
+        resize(tableSize + tableSize / 2);
         return insert(item);
     }
 

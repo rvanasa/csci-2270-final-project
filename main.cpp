@@ -78,8 +78,10 @@ vector<int> loadData(const string &filename) {
     return vec;
 }
 
+// Global output stream for recording data
 ofstream output; // NOLINT(cert-err58-cpp)
 
+// Helper method for formatting output file names
 void replaceAll(string &str, const string &from, const string &to) {
     if (from.empty())
         return;
@@ -90,8 +92,9 @@ void replaceAll(string &str, const string &from, const string &to) {
     }
 }
 
-void startRecording(const string &label) {
-    string path = "output/" + label + ".txt";
+// Begin recording to a given file name
+void startRecording(const string &filename) {
+    string path = "output/" + filename + ".txt";
     replaceAll(path, " ", "_");
     replaceAll(path, "(", "");
     replaceAll(path, ")", "");
@@ -107,10 +110,12 @@ void startRecording(const string &label) {
     output << "Operation, Load Factor, Time, Resize Count" << endl;
 }
 
+// Stop recording to the current file
 void stopRecording() {
     output.close();
 }
 
+// Record an operation execution result
 void record(const string &operation, double loadFactor, long long time, unsigned resizeCount) {
     output << operation << "," << loadFactor << "," << time << "," << resizeCount << endl;
 }
