@@ -109,7 +109,7 @@ void startRecording(const string &filename) {
     if (!output.good()) {
         throw runtime_error("Could not start recording");
     }
-    output << "Operation, Load Factor, Time, Resize Count" << endl;
+    output << "operation,load_factor,time,resize_count" << endl;
 }
 
 // Stop recording to the current file
