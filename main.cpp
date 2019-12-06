@@ -1,3 +1,8 @@
+// Global imports
+#include <iostream>
+using std::cout;
+using std::endl;
+
 // Project-level imports
 #include "BalancedTree.hpp"
 #include "SinglyLinkedList.hpp"
@@ -7,7 +12,6 @@
 #include "CuckooTable.hpp"
 
 // Standard library imports
-#include <iostream>
 #include <fstream>
 #include <sstream>
 #include <vector>
@@ -148,7 +152,7 @@ void timeOperation(const vector<U> &data, vector<U> dupes, Container<U> &table, 
             }
 
             // Compute the load factor based on the current index and duplicate cache
-            int capacity = table.capacity();
+            unsigned capacity = table.capacity();
             double loadFactor = capacity ? (double) (index - used.size()) / capacity : 0;
 
             // Time the current operation
@@ -174,7 +178,7 @@ void timeOperation(const vector<U> &data, vector<U> dupes, Container<U> &table, 
             // Record execution details
             record(label, loadFactor, time, resizeCount);
 
-            batchTime += time;
+            batchTime += (unsigned)time;
             index++;
         }
         overallTime += batchTime;

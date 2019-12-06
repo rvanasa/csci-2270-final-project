@@ -38,7 +38,7 @@ public:
         pair<bool, U> *prevTable = table;
         tableSize = size;
         table = new pair<bool, U>[tableSize];
-        for (int i = 0; i < prevSize; i++) {
+        for (unsigned i = 0; i < prevSize; i++) {
             if (prevTable[i].first && !insert(prevTable[i].second)) {
                 cout << "Warning: could not re-insert value into resized table" << endl;
             }
