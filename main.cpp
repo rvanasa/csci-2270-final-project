@@ -55,7 +55,7 @@ inline unsigned multiHash(unsigned n, int item, unsigned size) {
         case 4:
             return hash4(item, size);
     }
-    throw exception("Unexpected hash function index");
+    throw runtime_error("Unexpected hash function index");
 }
 
 // Load dataset from a given file name
@@ -63,7 +63,7 @@ vector<int> loadData(const string &filename) {
     vector<int> vec;
     ifstream input(filename);
     if (!input.is_open()) {
-        throw exception("Data file not found; check your current working directory");
+        throw runtime_error("Data file not found; check your current working directory");
     }
 
     string line, token;
@@ -102,7 +102,7 @@ void startRecording(const string &label) {
     replaceAll(path, "*", "2");
     output.open(path);
     if (!output.good()) {
-        throw exception("Could not start recording");
+        throw runtime_error("Could not start recording");
     }
     output << "Operation, Load Factor, Time, Resize Count" << endl;
 }
