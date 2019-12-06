@@ -1,5 +1,6 @@
 // Global imports
 #include <iostream>
+
 using std::cout;
 using std::endl;
 
@@ -80,6 +81,7 @@ vector<int> loadData(const string &filename) {
 
 // Global output stream for recording data
 ofstream output; // NOLINT(cert-err58-cpp)
+string outputDirectory;
 
 // Helper method for formatting output file names
 void replaceAll(string &str, const string &from, const string &to) {
@@ -94,7 +96,7 @@ void replaceAll(string &str, const string &from, const string &to) {
 
 // Begin recording to a given file name
 void startRecording(const string &filename) {
-    string path = "output/" + filename + ".txt";
+    string path = outputDirectory + "/" + filename + ".txt";
     replaceAll(path, " ", "_");
     replaceAll(path, "(", "");
     replaceAll(path, ")", "");
@@ -183,7 +185,7 @@ void timeOperation(const vector<U> &data, vector<U> dupes, Container<U> &table, 
             // Record execution details
             record(label, loadFactor, time, resizeCount);
 
-            batchTime += (unsigned)time;
+            batchTime += (unsigned) time;
             index++;
         }
         overallTime += batchTime;
@@ -195,7 +197,7 @@ void timeOperation(const vector<U> &data, vector<U> dupes, Container<U> &table, 
     cout << time << " ns";
     if (resizeCount) {
         // Show the resize count only if the table has been resized
-        cout << " (resizeCount: " << resizeCount << ")";
+        cout << " (resizes: " << resizeCount << ")";
     }
     cout << endl;
 }
@@ -258,10 +260,12 @@ void profileMultiHashFunction(const vector<U> &data, const vector<U> &dupes, con
 
 int main(int argc, char **argv) {
     // Retrieve dataset file path from first command line argument
-    string path = argc > 1 ? argv[1] : "data/dataSetA.csv";
+    string inputPath = argc > 1 ? argv[1] : "data/dataSetA.csv";
+    // Set global output directory from second command line argument
+    outputDirectory = argc > 2 ? argv[2] : "output";
 
-    cout << "Loading dataset: " << path << endl;
-    vector<int> data = loadData(path);
+    cout << "Loading dataset: " << inputPath << endl;
+    vector<int> data = loadData(inputPath);
     data.shrink_to_fit();
 
     cout << "Finding duplicates to verify correctness..." << endl;
