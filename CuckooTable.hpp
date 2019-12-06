@@ -26,7 +26,7 @@ protected:
 
     // Compute a hash from the output of `H` given the table index and element, modulo table capacity
     unsigned hash(unsigned n, U item) const {
-        return H(n, item, this->capacity()) % this->capacity();
+        return H(n, item, tableSize) % tableSize;
     }
 
 public:
@@ -44,7 +44,7 @@ public:
     }
 
     unsigned capacity() const override {
-        return tableSize;
+        return tableSize * N;
     }
 
     void resize(unsigned size) {
@@ -116,7 +116,7 @@ public:
 
 private:
     bool tryInsert(U item) {
-        return tryInsert(item, (unsigned)log2(tableSize) * 2 / N);
+        return tryInsert(item, (unsigned) log2(tableSize) * 2 / N);
     }
 
     bool tryInsert(U item, unsigned remaining) {
