@@ -44,7 +44,7 @@ public:
     }
 
     unsigned capacity() const override {
-        return tableSize * N;
+        return tableSize;
     }
 
     void resize(unsigned size) {

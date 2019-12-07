@@ -260,7 +260,7 @@ void profileMultiHashFunction(const vector<U> &data, const vector<U> &dupes, con
 
 int main(int argc, char **argv) {
     // Retrieve dataset file path from first command line argument
-    string inputPath = argc > 1 ? argv[1] : "data/dataSetC.csv";
+    string inputPath = argc > 1 ? argv[1] : "data/dataSetA.csv";
     // Set global output directory from second command line argument
     outputDirectory = argc > 2 ? argv[2] : "output";
 
