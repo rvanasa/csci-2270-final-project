@@ -19,7 +19,7 @@ class VectorList : public Container<U> {
     vector<U> vec;
 
 public:
-    unsigned capacity() const {
+    unsigned capacity() const override {
         return vec.capacity();
     }
 
